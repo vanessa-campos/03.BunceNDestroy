@@ -108,5 +108,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hits: 1
   points: 100
-  rotator: {x: 45, y: 0, z: 0}
+  rotator: {x: 90, y: 0, z: 0}
   hitMaterial: {fileID: 2100000, guid: ebc6aa31219a0c44698b405bd29bb23f, type: 2}

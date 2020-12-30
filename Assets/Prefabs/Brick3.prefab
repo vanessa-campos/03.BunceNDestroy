@@ -106,7 +106,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 28b2459dc863a3940ab5e5a8193f43d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hits: 2
-  points: 200
-  rotator: {x: 45, y: 0, z: 0}
+  hits: 3
+  points: 300
+  rotator: {x: 0, y: 0, z: 45}
   hitMaterial: {fileID: 2100000, guid: ebc6aa31219a0c44698b405bd29bb23f, type: 2}
