@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
+    public int BallsCount;
     public GameObject ballPrefab;
     public GameObject playerPrefab;
     public Text scoreText;
@@ -59,6 +60,10 @@ public class GameManager : MonoBehaviour
     {
         SwitchState(State.INIT);
     }
+    public void ExitClicked()
+    {
+        Application.Quit();
+    }
 
     void Start()
     {
@@ -86,6 +91,9 @@ public class GameManager : MonoBehaviour
         switch (newState)
         {
             case State.MENU:
+                panelPlay.SetActive(false);
+                Destroy(_currentLevel);
+                Destroy(_currentBall);
                 Cursor.visible = true;
                 highscoreText.text = "HIGHSCORE: " + PlayerPrefs.GetInt("highscore");
                 panelMenu.SetActive(true);
@@ -95,7 +103,7 @@ public class GameManager : MonoBehaviour
                 panelPlay.SetActive(true);
                 Score = 0;
                 Level = 0;
-                Balls = 3;
+                Balls = BallsCount;
                 if(_currentLevel != null)
                 {
                     Destroy(_currentLevel);
@@ -155,6 +163,11 @@ public class GameManager : MonoBehaviour
                 }
                 if(_currentLevel != null && _currentLevel.transform.childCount == 0 && !isSwitchingState){
                     SwitchState(State.LEVELCOMPLETED);
+                }
+
+                if (Input.GetButtonDown("Cancel"))
+                {
+                    SwitchState(State.MENU);
                 }
                 break;
             case State.LEVELCOMPLETED:
