@@ -35,6 +35,6 @@ public class Ball : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        _rigidbody.velocity = Vector3.Reflect(_velocity, collision.contacts[0].normal) * .5f;
+        _rigidbody.velocity = Vector3.Reflect(_velocity, collision.contacts[0].normal) * 10;
     }
 }

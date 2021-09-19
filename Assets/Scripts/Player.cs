@@ -13,6 +13,6 @@ public class Player : MonoBehaviour
 
     void Update()
     {
-        _rigidbody.MovePosition(new Vector3(Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, 0, 50)).x, -19, 0));
+        _rigidbody.MovePosition(new Vector3(Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, 0, 50)).x, -18.5f, 0));
     }
 }

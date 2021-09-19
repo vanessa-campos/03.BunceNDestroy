@@ -22,12 +22,13 @@ public class GameManager : MonoBehaviour
 
     public static GameManager Instance { get; private set; }
 
-    public enum State { MENU, INIT, PLAY, LEVELCOMPLETED, LOADLEVEL, GAMEOVER }
+    public enum State { MENU, INIT, PLAY, RESTART, LEVELCOMPLETED, LOADLEVEL, GAMEOVER }
     State _state;
     bool isSwitchingState;
 
     GameObject _currentBall;
     GameObject _currentLevel;
+    GameObject _newPlayer;
 
     private int _score;
     public int Score
@@ -63,6 +64,9 @@ public class GameManager : MonoBehaviour
     public void ExitClicked()
     {
         Application.Quit();
+    }
+    public void Restart(){
+        SwitchState(State.RESTART);
     }
 
     void Start()
@@ -108,7 +112,7 @@ public class GameManager : MonoBehaviour
                 {
                     Destroy(_currentLevel);
                 }
-                Instantiate(playerPrefab);
+                _newPlayer = Instantiate(playerPrefab);
                 SwitchState(State.LOADLEVEL);
                 break;
             case State.PLAY:
@@ -119,6 +123,11 @@ public class GameManager : MonoBehaviour
                 Level++;                
                 panelLevelCompleted.SetActive(true); 
                 SwitchState(State.LOADLEVEL, 2f);
+                break;
+            case State.RESTART:
+                Destroy(_currentBall);
+                Destroy(_currentLevel);
+                SwitchState(State.LOADLEVEL);    
                 break;
             case State.LOADLEVEL:
                 if (Level >= levels.Length)
@@ -132,11 +141,11 @@ public class GameManager : MonoBehaviour
                 }
                 break;
             case State.GAMEOVER:
+                panelGameOver.SetActive(true);
                 if(Score > PlayerPrefs.GetInt("highscore"))
                 {
                     PlayerPrefs.SetInt("highscore", Score);
                 }
-                panelGameOver.SetActive(true);
                 break;
         }
     }
@@ -164,11 +173,11 @@ public class GameManager : MonoBehaviour
                 if(_currentLevel != null && _currentLevel.transform.childCount == 0 && !isSwitchingState){
                     SwitchState(State.LEVELCOMPLETED);
                 }
-
                 if (Input.GetButtonDown("Cancel"))
                 {
                     SwitchState(State.MENU);
-                }
+                    Destroy(_newPlayer);
+                }                
                 break;
             case State.LEVELCOMPLETED:
                 break;
